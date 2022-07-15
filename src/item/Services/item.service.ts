@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Item as Schema, ItemDocument } from '../repositories/mongo/item.schema';
-import { ItemRequestDto } from "src/item/Controllers/Dtos/item.request";
+// import { Item as Schema } from '../repositories/mysql/item.schema';
 import { Repository } from '../repositories/repository.interface';
 import { Item as Model } from '../models/item.model';
 

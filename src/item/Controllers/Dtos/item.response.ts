@@ -1,4 +1,5 @@
 import { Item } from "src/item/repositories/mongo/item.schema";
+// import { Item } from "src/item/repositories/mysql/item.schema";
 
 export class ItemResponseDto{
     uuid: string;
