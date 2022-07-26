@@ -5,6 +5,8 @@ import { Item as Model } from "src/item/models/item.model";
 import { Repository } from "../repository.interface"
 import { Item as Schema, ItemDocument } from "./item.schema";
 
+export const MongoToken = 'mongo';
+
 @Injectable()
 export class MongoRepository extends Repository {
 

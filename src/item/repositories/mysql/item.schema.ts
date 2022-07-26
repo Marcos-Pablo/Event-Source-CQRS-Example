@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { IItemSchema } from '../item.schema.interface'
 
 @Entity()
-export class Item {
+export class Item implements IItemSchema{
   @PrimaryGeneratedColumn()
   id: number;
 

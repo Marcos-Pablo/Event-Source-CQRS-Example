@@ -1,5 +1,6 @@
 import { Item } from "src/item/repositories/mongo/item.schema";
 // import { Item } from "src/item/repositories/mysql/item.schema";
+import { IItemSchema } from "src/item/repositories/item.schema.interface"
 
 export class ItemResponseDto{
     uuid: string;
@@ -7,7 +8,7 @@ export class ItemResponseDto{
     quantity: number;
     cost: number;
 
-    static createFromSchema(itemSchema: Item): ItemResponseDto{
+    static createFromSchema(itemSchema: IItemSchema): ItemResponseDto{
         const itemResponse = new ItemResponseDto();
         itemResponse.uuid = itemSchema.uuid,
         itemResponse.name = itemSchema.name,

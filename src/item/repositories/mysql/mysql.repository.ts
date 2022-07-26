@@ -5,6 +5,8 @@ import { Item as Schema } from "../mysql/item.schema";
 import { Repository } from "../repository.interface";
 import { Repository as TypeormRepository } from 'typeorm';
 
+export const MysqlToken = 'mysql';
+
 @Injectable()
 export class MysqlRepository extends Repository {
     constructor(@InjectRepository(Schema) private itemsRepository: TypeormRepository<Schema>) {

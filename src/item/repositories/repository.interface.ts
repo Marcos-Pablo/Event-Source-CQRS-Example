@@ -1,5 +1,5 @@
 import { Item as Model } from "../models/item.model";
-import { Item as Schema } from "./mongo/item.schema";
+import { IItemSchema as Schema } from "./item.schema.interface";
 // import { Item as Schema } from "./mysql/item.schema"
 
 export abstract class Repository {
