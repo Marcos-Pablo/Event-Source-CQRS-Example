@@ -11,12 +11,12 @@ export class UpdateItemHandler implements ICommandHandler<UpdateItemCommand> {
 
     execute(command: UpdateItemCommand): Promise<void> {
         const item = new Item({
-            uuid: command.id,
+            uuid: command.uuid,
             name: command.name,
             cost: command.cost,
             quantity: command.quantity
         })
-        return this.repository.updateById(command.id, item)
+        return this.repository.updateById(command.uuid, item)
     }
 
 }

@@ -1,4 +1,4 @@
-export class UpdateItemCommand {
+export class ExportItemCreatedEvent {
     constructor(
         public readonly uuid: string,
         public readonly name: string,

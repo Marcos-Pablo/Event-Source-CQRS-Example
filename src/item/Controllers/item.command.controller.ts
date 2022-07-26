@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ItemResponseDto } from "./Dtos/item.response";
 
 @Controller("item")
-export class ItemController {
+export class ItemCommandController {
     constructor(private readonly itemService: ItemService) { }
 
     @Post()
