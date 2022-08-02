@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
 import { ItemRequestDto } from "src/item/Controllers/Dtos/item.request";
 import { ItemResponseDto } from "./Dtos/item.response";
-import { ItemReadService } from "../Services/item-read.service";
+import { ItemService } from "../Services/item.service";
 
 @Controller("item")
 export class ItemQueryController {
-    constructor(private readonly itemService: ItemReadService) { }
+    constructor(private readonly itemService: ItemService) { }
 
     @Get()
     async FindAll() {

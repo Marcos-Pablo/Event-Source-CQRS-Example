@@ -5,15 +5,28 @@ import { IItemSchema as Schema } from '../repositories/item.schema.interface';
 import { Repository } from '../repositories/repository.interface';
 import { Item as Model } from '../models/item.model';
 import { ItemRequestDto } from '../Controllers/Dtos/item.request';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateItemCommand } from '../Commands/create-item.command';
 import { UpdateItemCommand } from '../Commands/update-item.command';
 import { DeleteItemCommand } from '../Commands/delete-item.command';
+import { FindAllItemsQuery } from '../Queries/findall-items.query';
+import { FindItemQuery } from '../Queries/find-item.query';
 
 @Injectable()
 export class ItemService {
+    constructor(private commandBus: CommandBus, private queryBus: QueryBus) { }
 
-    constructor(private commandBus: CommandBus) { }
+    FindAll(): Promise<Schema[]> {
+        return this.queryBus.execute(
+            new FindAllItemsQuery()
+        )
+    }
+
+    async FindByIdAsync(id: string): Promise<Schema> {
+        return this.queryBus.execute(
+            new FindItemQuery(id)
+        );
+    }
 
     async Create(itemRequestDto: ItemRequestDto): Promise<void> {
         return this.commandBus.execute(

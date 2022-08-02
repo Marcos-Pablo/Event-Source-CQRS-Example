@@ -16,17 +16,20 @@ import { ItemReadService } from './Services/item-read.service';
 import { ItemQueryController } from './Controllers/item.query.controller';
 import { FindAllItemsHandler } from './Queries/Handlers/findall-items.handler';
 import { FindItemHandler } from './Queries/Handlers/find-item.handler';
-import { ExportItemCreatedEvent } from './Events/export-item-created.event';
+import { ExportItemCreatedEvent } from './events/export-item-created.event';
+import { ExportItemCreatedHandler } from './events/handlers/export-item-created.handler';
+import { EventModule } from 'src/event/event.module';
 
 export const CommandHandlers = [CreateItemHandler, UpdateItemHandler, DeleteItemHandler];
 export const QueryHandlers =  [FindAllItemsHandler, FindItemHandler];
-export const EventHandlers =  [ExportItemCreatedEvent];
+export const EventHandlers =  [ExportItemCreatedHandler];
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Item.name, schema: ItemSchema }]),
     TypeOrmModule.forFeature([MysqlItemSchema]),
-    CqrsModule
+    CqrsModule,
+    EventModule,
   ],
   controllers: [ItemCommandController, ItemQueryController],
   providers: [
@@ -36,7 +39,7 @@ export const EventHandlers =  [ExportItemCreatedEvent];
     {provide:MongoToken, useClass:MongoRepository},
     ...CommandHandlers,
     ...EventHandlers,
-    ...QueryHandlers
+    ...QueryHandlers,
   ],
 })
 export class ItemModule { }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EventModule } from './event/event.module';
 import { ItemModule } from './item/item.module';
 import { Item } from './item/repositories/mysql/item.schema';
 
