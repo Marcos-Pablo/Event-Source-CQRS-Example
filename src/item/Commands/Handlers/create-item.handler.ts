@@ -1,9 +1,8 @@
-import { CommandHandler, EventBus, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { Item } from "src/item/models/item.model";
 import { EventRepository } from "src/event/repositories/event.repository";
 import { CreateItemCommand } from "../create-item.command";
 import { v4 as uuidv4 } from 'uuid';
-import { Inject } from "@nestjs/common";
 import { Event } from "src/event/models/event.model";
 
 @CommandHandler(CreateItemCommand)
@@ -14,15 +13,18 @@ export class CreateItemHandler implements ICommandHandler<CreateItemCommand> {
   ) { }
 
   async execute(command: CreateItemCommand): Promise<void> {
-    const item = this.publisher.mergeObjectContext(new Item({
-      uuid: uuidv4(),
-      name: command.name,
-      cost: command.cost,
-      quantity: command.quantity
-    }))
+    const x = new Item();
+    x.uuid = uuidv4();
+    x.name = command.name;
+    x.quantity = command.quantity;
+    x.cost = command.cost;
 
-    this.repository.create(new Event(uuidv4(), 'ItemCreated', item))
-    item.create();
+    const item = this.publisher.mergeObjectContext(x)
+
+    const event = item.create();
+
+    this.repository.create(new Event(uuidv4(), item.uuid, 'ItemCreatedEvent', event))
+
     item.commit();
   }
 }

@@ -11,6 +11,9 @@ export class Event implements IEventSchema {
     uuid: string;
 
     @Prop({ required: true })
+    aggregateId: string;
+
+    @Prop({ required: true })
     eventName: string;
 
     @Prop({ required: true, type: mongoose.Types.Map })

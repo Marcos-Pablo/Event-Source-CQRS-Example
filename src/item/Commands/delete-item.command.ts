@@ -1,5 +1,5 @@
 export class DeleteItemCommand {
     constructor(
-        public readonly id: string,
+        public readonly uuid: string,
     ) { }
 }

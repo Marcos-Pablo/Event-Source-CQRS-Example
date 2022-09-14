@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 import { Item as Model } from "src/item/models/item.model";
+import { IItemSchema } from "../item.schema.interface";
 import { Repository } from "../repository.interface"
 import { Item as Schema, ItemDocument } from "./item.schema";
 
@@ -9,7 +10,6 @@ export const MongoToken = 'mongo';
 
 @Injectable()
 export class MongoRepository extends Repository {
-
     constructor(@InjectModel(Schema.name) private model: mongoose.Model<ItemDocument>) {
         super();
     }
@@ -46,5 +46,4 @@ export class MongoRepository extends Repository {
 
         await this.model.deleteOne({ uuid: id });
     }
-
 }

@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { IItemSchema } from '../item.schema.interface'
 
 @Entity()
-export class Item implements IItemSchema{
+export class Item implements IItemSchema {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,8 +19,5 @@ export class Item implements IItemSchema{
   cost: number;
 
   @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
+  deletedAt: Date | null;
 }

@@ -9,20 +9,17 @@ export class Item implements IItemSchema {
     @Prop({ required: true, index: { unique: true } })
     uuid: string;
 
-    @Prop({ required: true })
+    @Prop()
     name: string;
 
     @Prop()
     quantity: number;
 
-    @Prop({ required: true })
+    @Prop()
     cost: number;
 
     @Prop()
-    createdAt: Date;
-
-    @Prop()
-    updatedAt: Date;
+    deletedAt: Date | null;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);

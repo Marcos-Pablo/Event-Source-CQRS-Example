@@ -1,18 +1,62 @@
 import { AggregateRoot } from "@nestjs/cqrs";
-import { ExportItemCreatedEvent } from "../events/export-item-created.event";
+import { ItemCreatedEvent } from "../events/item-created.event";
+import { ItemDeletedEvent } from "../events/item-deleted.event";
+import { ItemUpdatedEvent } from "../events/item-updated.event";
 
 export class Item extends AggregateRoot {
     uuid: string;
     name: string;
     quantity: number;
     cost: number;
+    deletedAt: Date | null
 
-    public constructor(init?: Partial<Item>) {
+    public constructor() {
         super();
-        Object.assign(this, init);
+    }
+
+    getName(): string {
+        return this.name;
     }
 
     create() {
-        this.apply(new ExportItemCreatedEvent(this.uuid, this.name, this.quantity, this.cost))
+        const event = new ItemCreatedEvent(this.uuid, this.name, this.quantity, this.cost, null);
+
+        this.apply(event);
+
+        return event;
+    }
+
+    onItemCreatedEvent(event: ItemCreatedEvent) {
+        this.uuid = event.uuid;
+        this.name = event.name;
+        this.cost = event.cost;
+        this.quantity = event.quantity;
+        this.deletedAt = null;
+    }
+
+    update() {
+        const event = new ItemUpdatedEvent(this.uuid, this.name, this.quantity, this.cost)
+
+        this.apply(event);
+
+        return event;
+    }
+
+    onItemUpdatedEvent(event: ItemUpdatedEvent) {
+        this.name = event.name;
+        this.cost = event.cost;
+        this.quantity = event.quantity;
+    }
+
+    delete() {
+        const event = new ItemDeletedEvent(this.uuid, this.deletedAt);
+
+        this.apply(event);
+
+        return event;
+    }
+
+    onItemDeletedEvent(event: ItemDeletedEvent) {
+        this.deletedAt = event.deletedAt;
     }
 }

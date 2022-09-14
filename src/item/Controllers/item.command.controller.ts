@@ -1,9 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
 import { ItemRequestDto } from "src/item/Controllers/Dtos/item.request";
 import { ItemService } from "src/item/Services/item.service";
-import { Item } from "../models/item.model";
-import { v4 as uuidv4 } from 'uuid';
-import { ItemResponseDto } from "./Dtos/item.response";
 
 @Controller("item")
 export class ItemCommandController {

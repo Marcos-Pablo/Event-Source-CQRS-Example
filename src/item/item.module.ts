@@ -12,17 +12,16 @@ import { CreateItemHandler } from './Commands/Handlers/create-item.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UpdateItemHandler } from './Commands/Handlers/update-item.handler';
 import { DeleteItemHandler } from './Commands/Handlers/delete-item.handler';
-import { ItemReadService } from './Services/item-read.service';
 import { ItemQueryController } from './Controllers/item.query.controller';
 import { FindAllItemsHandler } from './Queries/Handlers/findall-items.handler';
 import { FindItemHandler } from './Queries/Handlers/find-item.handler';
-import { ExportItemCreatedEvent } from './events/export-item-created.event';
-import { ExportItemCreatedHandler } from './events/handlers/export-item-created.handler';
+import { ItemCreatedEventHandler } from './events/handlers/item-created.handler';
+import { ItemUpdatedEventHandler } from './events/handlers/item-updated.handler';
 import { EventModule } from 'src/event/event.module';
 
 export const CommandHandlers = [CreateItemHandler, UpdateItemHandler, DeleteItemHandler];
-export const QueryHandlers =  [FindAllItemsHandler, FindItemHandler];
-export const EventHandlers =  [ExportItemCreatedHandler];
+export const QueryHandlers = [FindAllItemsHandler, FindItemHandler];
+export const EventHandlers = [ItemCreatedEventHandler, ItemUpdatedEventHandler];
 
 @Module({
   imports: [
@@ -34,9 +33,8 @@ export const EventHandlers =  [ExportItemCreatedHandler];
   controllers: [ItemCommandController, ItemQueryController],
   providers: [
     ItemService,
-    ItemReadService,
-    {provide:MysqlToken, useClass:MysqlRepository},
-    {provide:MongoToken, useClass:MongoRepository},
+    { provide: MysqlToken, useClass: MysqlRepository },
+    { provide: MongoToken, useClass: MongoRepository },
     ...CommandHandlers,
     ...EventHandlers,
     ...QueryHandlers,

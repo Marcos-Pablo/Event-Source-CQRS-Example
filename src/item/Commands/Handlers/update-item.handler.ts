@@ -1,22 +1,35 @@
-import { Inject } from "@nestjs/common";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { Item } from "src/item/models/item.model";
-import { Repository } from "src/item/repositories/repository.interface";
 import { UpdateItemCommand } from "../update-item.command";
-import { MongoToken } from "src/item/repositories/mongo/mongo.repository";
+import { EventRepository } from "src/event/repositories/event.repository";
+import { Event } from "src/event/models/event.model";
+import { v4 as uuidv4 } from 'uuid';
+import { NotFoundException } from "@nestjs/common";
 
 @CommandHandler(UpdateItemCommand)
 export class UpdateItemHandler implements ICommandHandler<UpdateItemCommand> {
-    constructor(@Inject(MongoToken) private readonly repository: Repository) {}
+    constructor(
+        private readonly eventRepository: EventRepository,
+        private readonly publisher: EventPublisher) { }
 
-    execute(command: UpdateItemCommand): Promise<void> {
-        const item = new Item({
-            uuid: command.uuid,
-            name: command.name,
-            cost: command.cost,
-            quantity: command.quantity
-        })
-        return this.repository.updateById(command.uuid, item)
+    async execute(command: UpdateItemCommand): Promise<void> {
+        const events = await this.eventRepository.loadEvents(command.uuid)
+
+        const item = this.publisher.mergeObjectContext(new Item());
+        item.loadFromHistory(events)
+
+        if (item.deletedAt == null) {
+            item.name = command.name;
+            item.quantity = command.quantity;
+            item.cost = command.cost;
+            const event = item.update();
+
+            this.eventRepository.create(new Event(uuidv4(), item.uuid, 'ItemUpdatedEvent', event))
+
+            item.commit();
+        }
+
+        throw new NotFoundException();
     }
 
 }
