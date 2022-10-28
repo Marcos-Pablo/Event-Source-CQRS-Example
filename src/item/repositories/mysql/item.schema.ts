@@ -18,6 +18,6 @@ export class Item implements IItemSchema {
   @Column()
   cost: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: true })
   deletedAt: Date | null;
 }

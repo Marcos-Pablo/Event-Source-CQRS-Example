@@ -6,6 +6,6 @@ export class ItemCreatedEvent implements IEvent {
         public readonly name: string,
         public readonly quantity: number,
         public readonly cost: number,
-        public readonly deletedAt: Date | null
+        public readonly deletedAt: null
     ) { }
 }

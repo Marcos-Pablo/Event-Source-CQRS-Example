@@ -27,6 +27,8 @@ export class UpdateItemHandler implements ICommandHandler<UpdateItemCommand> {
             this.eventRepository.create(new Event(uuidv4(), item.uuid, 'ItemUpdatedEvent', event))
 
             item.commit();
+
+            return;
         }
 
         throw new NotFoundException();
