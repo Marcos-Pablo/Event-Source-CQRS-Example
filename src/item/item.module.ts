@@ -18,6 +18,7 @@ import { FindItemHandler } from './Queries/Handlers/find-item.handler';
 import { ItemCreatedEventHandler } from './events/handlers/item-created.handler';
 import { ItemUpdatedEventHandler } from './events/handlers/item-updated.handler';
 import { EventModule } from 'src/event/event.module';
+import { SnapshotModule } from 'src/snapshot/snapshot.module';
 
 export const CommandHandlers = [CreateItemHandler, UpdateItemHandler, DeleteItemHandler];
 export const QueryHandlers = [FindAllItemsHandler, FindItemHandler];
@@ -29,6 +30,7 @@ export const EventHandlers = [ItemCreatedEventHandler, ItemUpdatedEventHandler];
     TypeOrmModule.forFeature([MysqlItemSchema]),
     CqrsModule,
     EventModule,
+    SnapshotModule
   ],
   controllers: [ItemCommandController, ItemQueryController],
   providers: [

@@ -6,15 +6,13 @@ import { Event } from "src/event/models/event.model";
 import { EventRepository } from "../event.repository";
 import { IEventSchema } from "../event.schema.interface";
 import { Event as Schema, EventDocument } from "./event.schema";
-import { ClassConstructor, plainToInstance } from 'class-transformer';
-import { ItemCreatedEvent } from "src/item/events/item-created.event";
+import { plainToInstance } from 'class-transformer';
 import { EventFactory } from "src/event/factories/event-factory";
 
 @Injectable()
 export class EventMongoRepository extends EventRepository {
     constructor(@InjectModel(Schema.name) private model: mongoose.Model<EventDocument>,
-        private eventFactory: EventFactory) 
-    {
+        private eventFactory: EventFactory) {
         super();
     }
 
@@ -23,7 +21,17 @@ export class EventMongoRepository extends EventRepository {
     }
 
     async findByAggregateId(uuid: string): Promise<IEventSchema[]> {
-        return await this.model.find({ aggregateId: uuid });
+        return await this.model.find({ aggregateId: uuid, snapshot: false });
+    }
+
+    async findByAggregateIdAndEventName(uuid: string, eventName: string): Promise<IEventSchema[]> {
+        return await this.model.find({ aggregateId: uuid, snapshot: false, eventName: eventName });
+    }
+
+    async markAsSnapshot(uuids: string[]): Promise<void> {
+        await this.model.updateMany({ uuid: { $in: uuids } }, { "$set": { snapshot: true } });
+
+        return;
     }
 
     async loadEvents(uuid: string): Promise<IEvent[]> {
@@ -36,5 +44,4 @@ export class EventMongoRepository extends EventRepository {
 
         return deserializedEvents;
     }
-
 }

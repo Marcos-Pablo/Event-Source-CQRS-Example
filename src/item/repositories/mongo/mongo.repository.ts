@@ -18,6 +18,7 @@ export class MongoRepository extends Repository {
         createdItem.save();
         return;
     }
+
     async updateById(id: string, updatedItem: Model): Promise<void> {
         const item = await this.model.findOne({ uuid: id });
 
@@ -26,9 +27,11 @@ export class MongoRepository extends Repository {
 
         await this.model.updateOne({ uuid: id }, updatedItem)
     }
+
     async findAll(): Promise<Schema[]> {
         return await this.model.find().exec();
     }
+
     async findById(id: string): Promise<Schema> {
         const item = await this.model.findOne({ uuid: id });
 
@@ -37,6 +40,7 @@ export class MongoRepository extends Repository {
 
         return item;
     }
+    
     async deleteById(id: string): Promise<void> {
         const item = await this.model.findOne({ uuid: id });
 

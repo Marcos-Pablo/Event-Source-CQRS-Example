@@ -9,7 +9,7 @@ import { EventFactory } from "./factories/event-factory";
     imports: [
         MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }]),
     ],
-    exports: [EventRepository],
+    exports: [EventRepository, EventFactory],
     providers: [
         {
             provide: EventRepository,

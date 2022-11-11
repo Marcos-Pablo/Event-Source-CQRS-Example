@@ -1,7 +1,6 @@
-export interface IEventSchema {
+export interface ISnapshotSchema {
     uuid: string;
     aggregateId: string;
     eventName: string;
-    snapshot: boolean;
     eventData: any;
 }
