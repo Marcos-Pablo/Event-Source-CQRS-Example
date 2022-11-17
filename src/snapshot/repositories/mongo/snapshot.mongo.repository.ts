@@ -35,7 +35,6 @@ export class SnapshotMongoRepository extends SnapshotRepository {
             const eventType = this.eventFactory.getEventType(event.eventName);
             const deserializedEvent = plainToInstance(<any>eventType, event.eventData)
             
-
             return deserializedEvent;
         }
 

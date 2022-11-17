@@ -2,6 +2,7 @@ import { AggregateRoot } from "@nestjs/cqrs";
 import { ItemCreatedEvent } from "../events/item-created.event";
 import { ItemDeletedEvent } from "../events/item-deleted.event";
 import { ItemUpdatedEvent } from "../events/item-updated.event";
+import { SnapshotEvent } from "../events/snapshot.event";
 
 export class Item extends AggregateRoot {
     uuid: string;
@@ -57,6 +58,14 @@ export class Item extends AggregateRoot {
     }
 
     onItemDeletedEvent(event: ItemDeletedEvent) {
+        this.deletedAt = event.deletedAt;
+    }
+
+    onSnapshotEvent(event: SnapshotEvent) {
+        this.uuid = event.uuid;
+        this.name = event.name;
+        this.cost = event.cost;
+        this.quantity = event.quantity;
         this.deletedAt = event.deletedAt;
     }
 }

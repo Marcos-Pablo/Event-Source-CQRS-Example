@@ -18,12 +18,6 @@ export class UpdateItemHandler implements ICommandHandler<UpdateItemCommand> {
     async execute(command: UpdateItemCommand): Promise<void> {
         const events = await this.eventRepository.loadEvents(command.uuid)
 
-        const snapshot = await this.snapshotRepository.loadLastSnapshotEvent(command.uuid);
-
-        if(snapshot) {
-            events.splice(1, 0, snapshot);
-        }
-
         const item = this.publisher.mergeObjectContext(new Item());
         item.loadFromHistory(events)
 

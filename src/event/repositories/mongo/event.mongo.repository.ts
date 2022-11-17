@@ -8,11 +8,13 @@ import { IEventSchema } from "../event.schema.interface";
 import { Event as Schema, EventDocument } from "./event.schema";
 import { plainToInstance } from 'class-transformer';
 import { EventFactory } from "src/event/factories/event-factory";
+import { SnapshotRepository } from "src/snapshot/repositories/snapshot.repository";
 
 @Injectable()
 export class EventMongoRepository extends EventRepository {
     constructor(@InjectModel(Schema.name) private model: mongoose.Model<EventDocument>,
-        private eventFactory: EventFactory) {
+        private eventFactory: EventFactory,
+        private readonly snapshotRepository: SnapshotRepository) {
         super();
     }
 
@@ -37,10 +39,18 @@ export class EventMongoRepository extends EventRepository {
     async loadEvents(uuid: string): Promise<IEvent[]> {
         const events = await this.findByAggregateId(uuid);
 
+        const snapshot = await this.snapshotRepository.loadLastSnapshotEvent(uuid);
+
+        if (snapshot) {
+            events.splice(1, 0, snapshot);
+        }
+
         const deserializedEvents = events.map(event => {
             const eventType = this.eventFactory.getEventType(event.eventName);
             return plainToInstance(<any>eventType, event.eventData)
-        })
+        });
+
+
 
         return deserializedEvents;
     }

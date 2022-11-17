@@ -4,6 +4,7 @@ import { SnapshotMongoRepository } from "./repositories/mongo/snapshot.mongo.rep
 import { SnapshotRepository } from "./repositories/snapshot.repository";
 import { Snapshot, SnapshotSchema } from "./repositories/mongo/snapshot.schema";
 import { EventFactory } from "src/event/factories/event-factory";
+import { SnapshotService } from "./services/snapshot.service";
 
 @Module({
     imports: [
@@ -15,7 +16,8 @@ import { EventFactory } from "src/event/factories/event-factory";
             provide: SnapshotRepository,
             useClass: SnapshotMongoRepository
         },
-        EventFactory
+        EventFactory,
+        SnapshotService
     ],
 })
 export class SnapshotModule { }
