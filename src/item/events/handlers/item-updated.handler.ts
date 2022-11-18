@@ -4,13 +4,13 @@ import { ItemUpdatedEvent } from "../item-updated.event";
 import { Repository } from "src/item/repositories/repository.interface";
 import { Item } from "../../models/item.model";
 import { MysqlToken } from "src/item/repositories/mysql/mysql.repository";
-import { SnapshotService } from "src/snapshot/services/snapshot.service";
+import { EventService } from "src/event/services/event.service";
 
 @EventsHandler(ItemUpdatedEvent)
 export class ItemUpdatedEventHandler implements IEventHandler<ItemUpdatedEvent> {
     constructor(
         @Inject(MysqlToken) private readonly repository: Repository,
-        private readonly snapshotService: SnapshotService) { }
+        private readonly eventService: EventService) { }
 
     async handle(event: ItemUpdatedEvent) {
         const item = new Item();
@@ -21,6 +21,6 @@ export class ItemUpdatedEventHandler implements IEventHandler<ItemUpdatedEvent> 
 
         this.repository.updateById(item.uuid, item);
 
-        this.snapshotService.snapshotHandle(event.uuid);
+        this.eventService.snapshotHandle(event.uuid);
     }
 }

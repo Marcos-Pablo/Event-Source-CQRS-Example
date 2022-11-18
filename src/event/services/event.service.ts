@@ -1,22 +1,23 @@
-import { EventFactory } from "src/event/factories/event-factory";
 import { EventRepository } from "src/event/repositories/event.repository";
 import { plainToInstance } from 'class-transformer';
 import { EventPublisher } from "@nestjs/cqrs";
 import { Item } from "src/item/models/item.model";
 import { Injectable } from "@nestjs/common";
-import { SnapshotRepository } from "../repositories/snapshot.repository";
-import { Snapshot } from "../models/snapshot.model";
+import { SnapshotRepository } from "../../snapshot/repositories/snapshot.repository";
+import { Snapshot } from "../../snapshot/models/snapshot.model";
 import { v4 as uuidv4 } from 'uuid';
 import { SnapshotEvent } from "src/item/events/snapshot.event";
+import { EventFactory } from "../../commons/factories/event-factory";
+
 
 @Injectable()
-export class SnapshotService {
+export class EventService {
 
     constructor(
-        private readonly eventRepository: EventRepository,
         private eventFactory: EventFactory,
         private readonly publisher: EventPublisher,
-        private readonly snapshotRepository: SnapshotRepository) {
+        private readonly snapshotRepository: SnapshotRepository,
+        private readonly eventRepository: EventRepository) {
 
     }
 

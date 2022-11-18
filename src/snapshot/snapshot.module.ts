@@ -3,21 +3,21 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { SnapshotMongoRepository } from "./repositories/mongo/snapshot.mongo.repository";
 import { SnapshotRepository } from "./repositories/snapshot.repository";
 import { Snapshot, SnapshotSchema } from "./repositories/mongo/snapshot.schema";
-import { EventFactory } from "src/event/factories/event-factory";
-import { SnapshotService } from "./services/snapshot.service";
+import { EventFactory } from "src/commons/factories/event-factory";
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name: Snapshot.name, schema: SnapshotSchema }]),
+        MongooseModule.forFeature([{ name: Snapshot.name, schema: SnapshotSchema }])
     ],
-    exports: [SnapshotRepository],
+    exports: [
+        SnapshotRepository
+    ],
     providers: [
         {
             provide: SnapshotRepository,
             useClass: SnapshotMongoRepository
         },
-        EventFactory,
-        SnapshotService
+        EventFactory
     ],
 })
 export class SnapshotModule { }
