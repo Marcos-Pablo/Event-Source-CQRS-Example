@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { SnapshotMongoRepository } from "./repositories/mongo/snapshot.mongo.repository";
-import { SnapshotRepository } from "./repositories/snapshot.repository";
-import { Snapshot, SnapshotSchema } from "./repositories/mongo/snapshot.schema";
-import { EventFactory } from "src/commons/factories/event-factory";
+import { SnapshotMongoRepository } from "@snapshot/repositories/mongo/snapshot.mongo.repository";
+import { SnapshotRepository } from "@snapshot/repositories/snapshot.repository";
+import { Snapshot, SnapshotSchema } from "@snapshot/repositories/mongo/snapshot.schema";
+import { EventFactory } from "@commons/factories/event-factory";
 
 @Module({
     imports: [

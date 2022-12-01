@@ -1,11 +1,11 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { EventRepository } from "src/event/repositories/event.repository";
-import { Item } from "src/item/models/item.model";
-import { DeleteItemCommand } from "../delete-item.command";
+import { EventRepository } from "@event/repositories/event.repository";
+import { Item } from "@item/models/item.model";
+import { DeleteItemCommand } from "@item/Commands/delete-item.command";
 import { v4 as uuidv4 } from 'uuid';
-import { Event } from "src/event/models/event.model";
+import { Event } from "@event/models/event.model";
 import { NotFoundException } from "@nestjs/common";
-import { SnapshotRepository } from "src/snapshot/repositories/snapshot.repository";
+import { SnapshotRepository } from "@snapshot/repositories/snapshot.repository";
 
 @CommandHandler(DeleteItemCommand)
 export class DeleteItemHandler implements ICommandHandler<DeleteItemCommand> {
@@ -20,7 +20,7 @@ export class DeleteItemHandler implements ICommandHandler<DeleteItemCommand> {
 
         const snapshot = await this.snapshotRepository.loadLastSnapshotEvent(command.uuid);
 
-        if(snapshot) {
+        if (snapshot) {
             events.splice(1, 0, snapshot);
         }
 

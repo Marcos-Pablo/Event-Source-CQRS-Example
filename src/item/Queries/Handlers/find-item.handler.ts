@@ -1,8 +1,8 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { Repository } from "src/item/repositories/repository.interface";
-import { FindItemQuery } from "../find-item.query";
-import { IItemSchema as Schema } from 'src/item/repositories/item.schema.interface';
-import { MysqlToken } from "src/item/repositories/mysql/mysql.repository";
+import { Repository } from "@item/repositories/repository.interface";
+import { FindItemQuery } from "@item/Queries/find-item.query";
+import { IItemSchema as Schema } from '@item/repositories/item.schema.interface';
+import { MysqlToken } from "@item/repositories/mysql/mysql.repository";
 import { Inject } from "@nestjs/common";
 
 @QueryHandler(FindItemQuery)

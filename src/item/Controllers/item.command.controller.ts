@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
-import { ItemRequestDto } from "src/item/Controllers/Dtos/item.request";
-import { ItemService } from "src/item/Services/item.service";
+import { Body, Controller, Delete, HttpCode, Param, Patch, Post } from "@nestjs/common";
+import { ItemRequestDto } from "@item/Controllers/Dtos/item.request";
+import { ItemService } from "@item/Services/item.service";
 
 @Controller("item")
 export class ItemCommandController {

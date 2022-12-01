@@ -1,11 +1,11 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { Item } from "src/item/models/item.model";
-import { UpdateItemCommand } from "../update-item.command";
-import { EventRepository } from "src/event/repositories/event.repository";
-import { Event } from "src/event/models/event.model";
+import { Item } from "@item/models/item.model";
+import { UpdateItemCommand } from "@item/Commands/update-item.command";
+import { EventRepository } from "@event/repositories/event.repository";
+import { Event } from "@event/models/event.model";
 import { v4 as uuidv4 } from 'uuid';
 import { NotFoundException } from "@nestjs/common";
-import { SnapshotRepository } from "src/snapshot/repositories/snapshot.repository";
+import { SnapshotRepository } from "@snapshot/repositories/snapshot.repository";
 
 @CommandHandler(UpdateItemCommand)
 export class UpdateItemHandler implements ICommandHandler<UpdateItemCommand> {

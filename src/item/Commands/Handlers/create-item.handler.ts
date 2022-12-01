@@ -1,9 +1,9 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { Item } from "src/item/models/item.model";
-import { EventRepository } from "src/event/repositories/event.repository";
-import { CreateItemCommand } from "../create-item.command";
+import { Item } from "@item/models/item.model";
+import { EventRepository } from "@event/repositories/event.repository";
+import { CreateItemCommand } from "@item/Commands/create-item.command";
 import { v4 as uuidv4 } from 'uuid';
-import { Event } from "src/event/models/event.model";
+import { Event } from "@event/models/event.model";
 
 @CommandHandler(CreateItemCommand)
 export class CreateItemHandler implements ICommandHandler<CreateItemCommand> {

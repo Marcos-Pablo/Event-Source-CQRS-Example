@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { IItemSchema } from '../item.schema.interface'
+import { IItemSchema } from '@item/repositories/item.schema.interface'
 
 @Entity()
 export class Item implements IItemSchema {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import mongoose from "mongoose";
-import { Item as Model } from "src/item/models/item.model";
-import { Repository } from "../repository.interface"
-import { Item as Schema, ItemDocument } from "./item.schema";
+import { Item as Model } from "@item/models/item.model";
+import { Repository } from "@item/repositories/repository.interface"
+import { Item as Schema, ItemDocument } from "@item/repositories/mongo/item.schema";
 
 export const MongoToken = 'mongo';
 
@@ -40,7 +40,7 @@ export class MongoRepository extends Repository {
 
         return item;
     }
-    
+
     async deleteById(id: string): Promise<void> {
         const item = await this.model.findOne({ uuid: id });
 

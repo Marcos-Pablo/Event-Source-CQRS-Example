@@ -2,14 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { IEvent } from "@nestjs/cqrs";
 import { InjectModel } from "@nestjs/mongoose";
 import mongoose from "mongoose";
-import { Event } from "src/event/models/event.model";
-import { EventRepository } from "../event.repository";
-import { IEventSchema } from "../event.schema.interface";
-import { Event as Schema, EventDocument } from "./event.schema";
+import { Event } from "@event/models/event.model";
+import { EventRepository } from "@event/repositories/event.repository";
+import { Event as Schema, EventDocument } from "@event/repositories/mongo/event.schema";
 import { plainToInstance } from 'class-transformer';
-import { EventFactory } from "src/commons/factories/event-factory";
-import { SnapshotRepository } from "src/snapshot/repositories/snapshot.repository";
-import { IEventBase } from "src/commons/interfaces/event-base.interface";
+import { EventFactory } from "@commons/factories/event-factory";
+import { SnapshotRepository } from "@snapshot/repositories/snapshot.repository";
+import { IEventBase } from "@commons/interfaces/event-base.interface";
 
 @Injectable()
 export class EventMongoRepository extends EventRepository {

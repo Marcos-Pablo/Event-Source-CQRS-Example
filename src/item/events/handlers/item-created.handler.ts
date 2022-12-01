@@ -1,9 +1,9 @@
 import { Inject } from "@nestjs/common";
 import { EventsHandler, IEventHandler } from "@nestjs/cqrs";
-import { ItemCreatedEvent } from "../item-created.event";
-import { Repository } from "src/item/repositories/repository.interface";
-import { Item } from "../../models/item.model";
-import { MysqlToken } from "src/item/repositories/mysql/mysql.repository";
+import { ItemCreatedEvent } from "@item/events/item-created.event";
+import { Repository } from "@item/repositories/repository.interface";
+import { Item } from "@item/models/item.model";
+import { MysqlToken } from "@item/repositories/mysql/mysql.repository";
 
 @EventsHandler(ItemCreatedEvent)
 export class ItemCreatedEventHandler implements IEventHandler<ItemCreatedEvent> {

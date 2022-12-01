@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { IItemSchema } from '../item.schema.interface'
+import { IItemSchema } from '@item/repositories/item.schema.interface'
 
 export type ItemDocument = Item & mongoose.Document
 

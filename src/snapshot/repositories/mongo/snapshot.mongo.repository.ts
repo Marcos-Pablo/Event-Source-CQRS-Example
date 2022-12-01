@@ -3,12 +3,11 @@ import { IEvent } from "@nestjs/cqrs";
 import { InjectModel } from "@nestjs/mongoose";
 import { plainToInstance } from "class-transformer";
 import mongoose from "mongoose";
-import { EventFactory } from "src/commons/factories/event-factory";
-import { IEventBase } from "src/commons/interfaces/event-base.interface";
-import { Snapshot } from "src/snapshot/models/snapshot.model";
-import { SnapshotRepository } from "../snapshot.repository";
-import { ISnapshotSchema } from "../snapshot.schema.interface";
-import { Snapshot as Schema, SnapshotDocument } from "./snapshot.schema";
+import { EventFactory } from "@commons/factories/event-factory";
+import { IEventBase } from "@commons/interfaces/event-base.interface";
+import { Snapshot } from "@snapshot/models/snapshot.model";
+import { SnapshotRepository } from "@snapshot/repositories/snapshot.repository";
+import { Snapshot as Schema, SnapshotDocument } from "@snapshot/repositories/mongo/snapshot.schema";
 
 @Injectable()
 export class SnapshotMongoRepository extends SnapshotRepository {

@@ -1,8 +1,8 @@
 import { AggregateRoot } from "@nestjs/cqrs";
-import { ItemCreatedEvent } from "../events/item-created.event";
-import { ItemDeletedEvent } from "../events/item-deleted.event";
-import { ItemUpdatedEvent } from "../events/item-updated.event";
-import { SnapshotEvent } from "../events/snapshot.event";
+import { ItemCreatedEvent } from "@item/events/item-created.event";
+import { ItemDeletedEvent } from "@item/events/item-deleted.event";
+import { ItemUpdatedEvent } from "@item/events/item-updated.event";
+import { SnapshotEvent } from "@item/events/snapshot.event";
 
 export class Item extends AggregateRoot {
     uuid: string;

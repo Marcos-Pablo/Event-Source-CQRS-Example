@@ -1,16 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-// import { Item as Schema, ItemDocument } from '../repositories/mongo/item.schema';
-// import { Item as Schema } from '../repositories/mysql/item.schema';
-import { IItemSchema as Schema } from '../repositories/item.schema.interface';
-import { Repository } from '../repositories/repository.interface';
-import { Item as Model } from '../models/item.model';
-import { ItemRequestDto } from '../Controllers/Dtos/item.request';
+import { Injectable } from '@nestjs/common';
+import { IItemSchema as Schema } from '@item/repositories/item.schema.interface';
+import { ItemRequestDto } from '@item/Controllers/Dtos/item.request';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateItemCommand } from '../Commands/create-item.command';
-import { UpdateItemCommand } from '../Commands/update-item.command';
-import { DeleteItemCommand } from '../Commands/delete-item.command';
-import { FindAllItemsQuery } from '../Queries/findall-items.query';
-import { FindItemQuery } from '../Queries/find-item.query';
+import { CreateItemCommand } from '@item/Commands/create-item.command';
+import { UpdateItemCommand } from '@item/Commands/update-item.command';
+import { DeleteItemCommand } from '@item/Commands/delete-item.command';
+import { FindAllItemsQuery } from '@item/Queries/findall-items.query';
+import { FindItemQuery } from '@item/Queries/find-item.query';
 
 @Injectable()
 export class ItemService {

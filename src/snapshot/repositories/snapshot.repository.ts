@@ -1,7 +1,6 @@
 import { IEvent } from "@nestjs/cqrs";
-import { IEventBase } from "src/commons/interfaces/event-base.interface";
-import { Snapshot as Model } from "../models/snapshot.model";
-import { ISnapshotSchema as Schema } from "./snapshot.schema.interface";
+import { IEventBase } from "@commons/interfaces/event-base.interface";
+import { Snapshot as Model } from "@snapshot/models/snapshot.model";
 
 export abstract class SnapshotRepository {
     abstract create(event: Model): Promise<void>;

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
-import { IEventSchema } from "../event.schema.interface";
+import { IEventSchema } from "@event/repositories/event.schema.interface";
 
 export type EventDocument = Event & mongoose.Document
 
@@ -16,7 +16,7 @@ export class Event implements IEventSchema {
     @Prop({ required: true })
     eventName: string;
 
-    @Prop({ default: false})
+    @Prop({ default: false })
     snapshot: boolean;
 
     @Prop({ required: true, type: mongoose.Types.Map })

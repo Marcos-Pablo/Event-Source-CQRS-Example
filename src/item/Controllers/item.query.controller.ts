@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { ItemResponseDto } from "./Dtos/item.response";
-import { ItemService } from "../Services/item.service";
+import { ItemResponseDto } from "@item/Controllers/Dtos/item.response";
+import { ItemService } from "@item/Services/item.service";
 
 @Controller("item")
 export class ItemQueryController {
