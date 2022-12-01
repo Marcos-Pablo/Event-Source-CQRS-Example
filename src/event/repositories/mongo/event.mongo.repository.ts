@@ -9,6 +9,7 @@ import { Event as Schema, EventDocument } from "./event.schema";
 import { plainToInstance } from 'class-transformer';
 import { EventFactory } from "src/commons/factories/event-factory";
 import { SnapshotRepository } from "src/snapshot/repositories/snapshot.repository";
+import { IEventBase } from "src/commons/interfaces/event-base.interface";
 
 @Injectable()
 export class EventMongoRepository extends EventRepository {
@@ -22,12 +23,8 @@ export class EventMongoRepository extends EventRepository {
         await this.model.create(event);
     }
 
-    async findByAggregateId(uuid: string): Promise<IEventSchema[]> {
+    async findByAggregateId(uuid: string): Promise<IEventBase[]> {
         return await this.model.find({ aggregateId: uuid, snapshot: false });
-    }
-
-    async findByAggregateIdAndEventName(uuid: string, eventName: string): Promise<IEventSchema[]> {
-        return await this.model.find({ aggregateId: uuid, snapshot: false, eventName: eventName });
     }
 
     async markAsSnapshot(uuids: string[]): Promise<void> {
@@ -39,16 +36,16 @@ export class EventMongoRepository extends EventRepository {
     async loadEvents(uuid: string): Promise<IEvent[]> {
         const events = await this.findByAggregateId(uuid);
 
+        const snapshot = await this.snapshotRepository.findLastSnapshotByAggregateId(uuid);
+
+        if (snapshot) {
+            events.splice(0, 0, snapshot);
+        }
+
         const deserializedEvents = events.map(event => {
             const eventType = this.eventFactory.getEventType(event.eventName);
             return plainToInstance(<any>eventType, event.eventData)
         });
-
-        const snapshot = await this.snapshotRepository.loadLastSnapshotEvent(uuid);
-
-        if (snapshot) {
-            deserializedEvents.splice(0, 0, snapshot);
-        }
 
         return deserializedEvents;
     }

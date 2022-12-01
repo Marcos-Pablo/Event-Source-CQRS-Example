@@ -1,7 +1,5 @@
-export interface IEventSchema {
-    uuid: string;
-    aggregateId: string;
-    eventName: string;
+import { IEventBase } from "src/commons/interfaces/event-base.interface";
+
+export interface IEventSchema extends IEventBase {
     snapshot: boolean;
-    eventData: any;
 }

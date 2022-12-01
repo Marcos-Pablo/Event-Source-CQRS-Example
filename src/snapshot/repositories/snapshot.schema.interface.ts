@@ -1,6 +1,3 @@
-export interface ISnapshotSchema {
-    uuid: string;
-    aggregateId: string;
-    eventName: string;
-    eventData: any;
-}
+import { IEventBase } from "src/commons/interfaces/event-base.interface";
+
+export interface ISnapshotSchema extends IEventBase {}

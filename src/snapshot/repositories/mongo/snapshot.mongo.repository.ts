@@ -4,6 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { plainToInstance } from "class-transformer";
 import mongoose from "mongoose";
 import { EventFactory } from "src/commons/factories/event-factory";
+import { IEventBase } from "src/commons/interfaces/event-base.interface";
 import { Snapshot } from "src/snapshot/models/snapshot.model";
 import { SnapshotRepository } from "../snapshot.repository";
 import { ISnapshotSchema } from "../snapshot.schema.interface";
@@ -24,7 +25,7 @@ export class SnapshotMongoRepository extends SnapshotRepository {
         await this.model.create(event);
     }
 
-    async findLastSnapshotByAggregateId(uuid: string): Promise<ISnapshotSchema> {
+    async findLastSnapshotByAggregateId(uuid: string): Promise<IEventBase> {
         return await this.model.findOne({ aggregateId: uuid }, {}, { sort: { 'createdAt' : -1 }});
     }
 
