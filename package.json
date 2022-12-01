@@ -76,5 +76,13 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "moduleNameMapper": {
+    "^@src/(.*)$": "<rootDir>/$1",
+    "^@commons/(.*)$": "<rootDir>/commons/$1",
+    "^@config/(.*)$": "<rootDir>/config/$1",
+    "^@test/(.*)$": "<rootDir>/../test/$1",
+    "^@database/(.*)$": "<rootDir>/database/$1",
+    "^@shipping-preferences/(.*)$": "<rootDir>/shipping-preferences/$1"
   }
 }
