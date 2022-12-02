@@ -1,3 +1,3 @@
-import { IEventBase } from "@commons/interfaces/event-base.interface";
+import { IEventBase } from '@commons/interfaces/event-base.interface';
 
-export interface ISnapshotSchema extends IEventBase {}
+export type ISnapshotSchema = IEventBase;

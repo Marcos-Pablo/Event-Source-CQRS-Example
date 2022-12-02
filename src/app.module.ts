@@ -17,9 +17,9 @@ import { Item } from '@item/repositories/mysql/item.schema';
       database: 'testedb',
       entities: [Item],
       synchronize: true,
-    })
+    }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

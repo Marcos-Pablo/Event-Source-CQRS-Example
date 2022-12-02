@@ -1,23 +1,22 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ItemResponseDto } from "@item/Controllers/Dtos/item.response";
-import { ItemService } from "@item/Services/item.service";
+import { Controller, Get, Param } from '@nestjs/common';
+import { ItemResponseDto } from '@item/Controllers/Dtos/item.response';
+import { ItemService } from '@item/Services/item.service';
 
-@Controller("item")
+@Controller('item')
 export class ItemQueryController {
-    constructor(private readonly itemService: ItemService) { }
+  constructor(private readonly itemService: ItemService) {}
 
-    @Get()
-    async FindAll() {
-        const items = await this.itemService.FindAll();
+  @Get()
+  async FindAll() {
+    const items = await this.itemService.FindAll();
 
-        return items.map(item => ItemResponseDto.createFromSchema(item));
-    }
+    return items.map((item) => ItemResponseDto.createFromSchema(item));
+  }
 
-    @Get(':id')
-    async FindOne(@Param('id') id: string) {
-        const item = await this.itemService.FindByIdAsync(id);
+  @Get(':id')
+  async FindOne(@Param('id') id: string) {
+    const item = await this.itemService.FindByIdAsync(id);
 
-        return ItemResponseDto.createFromSchema(item);
-    }
-
+    return ItemResponseDto.createFromSchema(item);
+  }
 }
