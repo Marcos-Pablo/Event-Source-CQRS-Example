@@ -9,6 +9,13 @@ services:
     volumes:
       - mongodbdata:/data/db
 
+  redis:
+    container_name: cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
 
   mysqlsrv:
     image: mysql
@@ -30,10 +37,12 @@ services:
     networks:
       - mysql-compose-network
 
-networks: 
+networks:
   mysql-compose-network:
     driver: bridge
 
 volumes:
   mongodbdata:
   mysqldbdata:
+  redis:
+    driver: local
