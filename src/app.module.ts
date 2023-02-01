@@ -8,34 +8,31 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 export const REDIS_CACHE = 'REDIS_CACHE';
 
-
 @Global()
 @Module({
-  imports: [
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: 'localhost',
-      port: 6379,
-    }),
-    ConfigModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-catalog-mongo'),
-    ItemModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'testedb',
-      entities: [Item],
-      synchronize: true,
-    })
-  ],
-  controllers: [],
-  providers: [
-
-  ],
-  exports: [ConfigModule]
+    imports: [
+        CacheModule.register({
+            isGlobal: true,
+            store: redisStore,
+            host: 'localhost',
+            port: 6379,
+        }),
+        ConfigModule,
+        MongooseModule.forRoot('mongodb://localhost:27017/nest-catalog-mongo'),
+        ItemModule,
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: 'localhost',
+            port: 3306,
+            username: 'root',
+            password: 'root',
+            database: 'testedb',
+            entities: [Item],
+            synchronize: true,
+        }),
+    ],
+    controllers: [],
+    providers: [],
+    exports: [ConfigModule],
 })
-export class AppModule { }
+export class AppModule {}
