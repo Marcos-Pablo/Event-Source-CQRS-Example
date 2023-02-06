@@ -1,5 +1,5 @@
-import { Item as Model } from "@item/models/item.model";
-import { IItemSchema as Schema } from "@item/repositories/item.schema.interface";
+import { Item as Model } from '@item/models/item.model';
+import { IItemSchema as Schema } from '@item/repositories/item.schema.interface';
 
 export abstract class Repository {
     abstract create(item: Model): Promise<void>;

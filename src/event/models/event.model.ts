@@ -4,5 +4,5 @@ export class Event {
         readonly aggregateId: string,
         readonly eventName: string,
         readonly eventData: any,
-    ) { }
+    ) {}
 }

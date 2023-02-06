@@ -1,6 +1,6 @@
-import { IEvent } from "@nestjs/cqrs";
-import { IEventBase } from "@commons/interfaces/event-base.interface";
-import { Event as Model } from "@event/models/event.model";
+import { IEvent } from '@nestjs/cqrs';
+import { IEventBase } from '@commons/interfaces/event-base.interface';
+import { Event as Model } from '@event/models/event.model';
 
 export abstract class EventRepository {
     abstract create(event: Model): Promise<void>;

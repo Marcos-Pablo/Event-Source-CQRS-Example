@@ -7,9 +7,9 @@ import { MysqlToken } from '@item/repositories/mysql/mysql.repository';
 
 @QueryHandler(FindAllItemsQuery)
 export class FindAllItemsHandler implements IQueryHandler {
-  constructor(@Inject(MysqlToken) private readonly repository: Repository) {}
+    constructor(@Inject(MysqlToken) private readonly repository: Repository) {}
 
-  execute(query: FindAllItemsQuery): Promise<Schema[]> {
-    return this.repository.findAll();
-  }
+    execute(query: FindAllItemsQuery): Promise<Schema[]> {
+        return this.repository.findAll();
+    }
 }
