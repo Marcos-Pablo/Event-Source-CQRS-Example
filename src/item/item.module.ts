@@ -4,15 +4,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Item, ItemSchema } from '@item/repositories/mongo/item.schema';
 import { Item as MysqlItemSchema } from '@item/repositories/mysql/item.schema';
 import { ItemCommandController } from '@item/Controllers/item.command.controller';
-import {
-  MongoRepository,
-  MongoToken,
-} from '@item/repositories/mongo/mongo.repository';
+import { MongoRepository, MongoToken } from '@item/repositories/mongo/mongo.repository'
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  MysqlRepository,
-  MysqlToken,
-} from '@item/repositories/mysql/mysql.repository';
+import { MysqlRepository, MysqlToken } from '@item/repositories/mysql/mysql.repository';
 import { CreateItemHandler } from '@item/Commands/Handlers/create-item.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UpdateItemHandler } from '@item/Commands/Handlers/update-item.handler';
@@ -25,11 +19,7 @@ import { ItemUpdatedEventHandler } from '@item/events/handlers/item-updated.hand
 import { EventModule } from '@event/event.module';
 import { SnapshotModule } from '@snapshot/snapshot.module';
 
-export const CommandHandlers = [
-  CreateItemHandler,
-  UpdateItemHandler,
-  DeleteItemHandler,
-];
+export const CommandHandlers = [CreateItemHandler, UpdateItemHandler, DeleteItemHandler];
 export const QueryHandlers = [FindAllItemsHandler, FindItemHandler];
 export const EventHandlers = [ItemCreatedEventHandler, ItemUpdatedEventHandler];
 
@@ -39,7 +29,7 @@ export const EventHandlers = [ItemCreatedEventHandler, ItemUpdatedEventHandler];
     TypeOrmModule.forFeature([MysqlItemSchema]),
     CqrsModule,
     EventModule,
-    SnapshotModule,
+    SnapshotModule
   ],
   controllers: [ItemCommandController, ItemQueryController],
   providers: [
@@ -51,4 +41,4 @@ export const EventHandlers = [ItemCreatedEventHandler, ItemUpdatedEventHandler];
     ...QueryHandlers,
   ],
 })
-export class ItemModule {}
+export class ItemModule { }
