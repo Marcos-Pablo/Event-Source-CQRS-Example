@@ -1,25 +1,38 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, CacheStore, Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ItemModule } from '@item/item.module';
 import { Item } from '@item/repositories/mysql/item.schema';
+import * as redisStore from 'cache-manager-redis-store';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
+export const REDIS_CACHE = 'REDIS_CACHE';
+
+@Global()
 @Module({
-  imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-catalog-mongo'),
-    ItemModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'testedb',
-      entities: [Item],
-      synchronize: true,
-    })
-  ],
-  controllers: [],
-  providers: [],
+    imports: [
+        CacheModule.register({
+            isGlobal: true,
+            store: redisStore,
+            host: 'localhost',
+            port: 6379,
+        }),
+        ConfigModule,
+        MongooseModule.forRoot('mongodb://localhost:27017/nest-catalog-mongo'),
+        ItemModule,
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: 'localhost',
+            port: 3306,
+            username: 'root',
+            password: 'root',
+            database: 'testedb',
+            entities: [Item],
+            synchronize: true,
+        }),
+    ],
+    controllers: [],
+    providers: [],
+    exports: [ConfigModule],
 })
-export class AppModule { }
+export class AppModule {}

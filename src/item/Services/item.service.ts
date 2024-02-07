@@ -10,36 +10,38 @@ import { FindItemQuery } from '@item/Queries/find-item.query';
 
 @Injectable()
 export class ItemService {
-    constructor(private commandBus: CommandBus, private queryBus: QueryBus) { }
+    constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
     FindAll(): Promise<Schema[]> {
-        return this.queryBus.execute(
-            new FindAllItemsQuery()
-        )
+        return this.queryBus.execute(new FindAllItemsQuery());
     }
 
     async FindByIdAsync(id: string): Promise<Schema> {
-        return this.queryBus.execute(
-            new FindItemQuery(id)
-        );
+        return this.queryBus.execute(new FindItemQuery(id));
     }
 
     async Create(itemRequestDto: ItemRequestDto): Promise<void> {
         return this.commandBus.execute(
-            new CreateItemCommand(itemRequestDto.name, itemRequestDto.cost, itemRequestDto.quantity)
+            new CreateItemCommand(
+                itemRequestDto.name,
+                itemRequestDto.cost,
+                itemRequestDto.quantity,
+            ),
         );
     }
 
     async DeleteById(id: string): Promise<void> {
-        return this.commandBus.execute(
-            new DeleteItemCommand(id)
-        );
+        return this.commandBus.execute(new DeleteItemCommand(id));
     }
 
     async Update(id: string, updateItemDto: ItemRequestDto): Promise<void> {
-
         return this.commandBus.execute(
-            new UpdateItemCommand(id, updateItemDto.name, updateItemDto.cost, updateItemDto.quantity)
+            new UpdateItemCommand(
+                id,
+                updateItemDto.name,
+                updateItemDto.cost,
+                updateItemDto.quantity,
+            ),
         );
     }
 }

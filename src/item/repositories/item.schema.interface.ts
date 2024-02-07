@@ -3,5 +3,5 @@ export interface IItemSchema {
     name: string;
     quantity: number;
     cost: number;
-    deletedAt: Date | null
+    deletedAt: Date | null;
 }

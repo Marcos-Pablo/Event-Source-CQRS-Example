@@ -1,4 +1,4 @@
-import { IEvent } from "@nestjs/cqrs";
+import { IEvent } from '@nestjs/cqrs';
 
 export class ItemCreatedEvent implements IEvent {
     constructor(
@@ -6,6 +6,6 @@ export class ItemCreatedEvent implements IEvent {
         public readonly name: string,
         public readonly quantity: number,
         public readonly cost: number,
-        public readonly deletedAt: null
-    ) { }
+        public readonly deletedAt: null,
+    ) {}
 }

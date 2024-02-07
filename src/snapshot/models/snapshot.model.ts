@@ -4,5 +4,5 @@ export class Snapshot {
         readonly aggregateId: string,
         readonly eventName: string,
         readonly eventData: any,
-    ) { };
+    ) {}
 }

@@ -1,15 +1,15 @@
-import { AggregateRoot } from "@nestjs/cqrs";
-import { ItemCreatedEvent } from "@item/events/item-created.event";
-import { ItemDeletedEvent } from "@item/events/item-deleted.event";
-import { ItemUpdatedEvent } from "@item/events/item-updated.event";
-import { SnapshotEvent } from "@item/events/snapshot.event";
+import { AggregateRoot } from '@nestjs/cqrs';
+import { ItemCreatedEvent } from '@item/events/item-created.event';
+import { ItemDeletedEvent } from '@item/events/item-deleted.event';
+import { ItemUpdatedEvent } from '@item/events/item-updated.event';
+import { SnapshotEvent } from '@item/events/snapshot.event';
 
 export class Item extends AggregateRoot {
     uuid: string;
     name: string;
     quantity: number;
     cost: number;
-    deletedAt: Date | null
+    deletedAt: Date | null;
 
     public constructor() {
         super();
@@ -20,7 +20,13 @@ export class Item extends AggregateRoot {
     }
 
     create() {
-        const event = new ItemCreatedEvent(this.uuid, this.name, this.quantity, this.cost, null);
+        const event = new ItemCreatedEvent(
+            this.uuid,
+            this.name,
+            this.quantity,
+            this.cost,
+            null,
+        );
 
         this.apply(event);
 
@@ -36,7 +42,12 @@ export class Item extends AggregateRoot {
     }
 
     update() {
-        const event = new ItemUpdatedEvent(this.uuid, this.name, this.quantity, this.cost)
+        const event = new ItemUpdatedEvent(
+            this.uuid,
+            this.name,
+            this.quantity,
+            this.cost,
+        );
 
         this.apply(event);
 

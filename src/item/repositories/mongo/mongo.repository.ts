@@ -1,15 +1,20 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import mongoose from "mongoose";
-import { Item as Model } from "@item/models/item.model";
-import { Repository } from "@item/repositories/repository.interface"
-import { Item as Schema, ItemDocument } from "@item/repositories/mongo/item.schema";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { Item as Model } from '@item/models/item.model';
+import { Repository } from '@item/repositories/repository.interface';
+import {
+    Item as Schema,
+    ItemDocument,
+} from '@item/repositories/mongo/item.schema';
 
 export const MongoToken = 'mongo';
 
 @Injectable()
 export class MongoRepository extends Repository {
-    constructor(@InjectModel(Schema.name) private model: mongoose.Model<ItemDocument>) {
+    constructor(
+        @InjectModel(Schema.name) private model: mongoose.Model<ItemDocument>,
+    ) {
         super();
     }
 
@@ -22,10 +27,9 @@ export class MongoRepository extends Repository {
     async updateById(id: string, updatedItem: Model): Promise<void> {
         const item = await this.model.findOne({ uuid: id });
 
-        if (!item)
-            throw new NotFoundException();
+        if (!item) throw new NotFoundException();
 
-        await this.model.updateOne({ uuid: id }, updatedItem)
+        await this.model.updateOne({ uuid: id }, updatedItem);
     }
 
     async findAll(): Promise<Schema[]> {
@@ -35,8 +39,7 @@ export class MongoRepository extends Repository {
     async findById(id: string): Promise<Schema> {
         const item = await this.model.findOne({ uuid: id });
 
-        if (!item)
-            throw new NotFoundException();
+        if (!item) throw new NotFoundException();
 
         return item;
     }
@@ -44,8 +47,7 @@ export class MongoRepository extends Repository {
     async deleteById(id: string): Promise<void> {
         const item = await this.model.findOne({ uuid: id });
 
-        if (!item)
-            throw new NotFoundException();
+        if (!item) throw new NotFoundException();
 
         await this.model.deleteOne({ uuid: id });
     }

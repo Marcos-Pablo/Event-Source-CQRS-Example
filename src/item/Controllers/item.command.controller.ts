@@ -1,10 +1,18 @@
-import { Body, Controller, Delete, HttpCode, Param, Patch, Post } from "@nestjs/common";
-import { ItemRequestDto } from "@item/Controllers/Dtos/item.request";
-import { ItemService } from "@item/Services/item.service";
+import {
+    Body,
+    Controller,
+    Delete,
+    HttpCode,
+    Param,
+    Patch,
+    Post,
+} from '@nestjs/common';
+import { ItemRequestDto } from '@item/Controllers/Dtos/item.request';
+import { ItemService } from '@item/Services/item.service';
 
-@Controller("item")
+@Controller('item')
 export class ItemCommandController {
-    constructor(private readonly itemService: ItemService) { }
+    constructor(private readonly itemService: ItemService) {}
 
     @Post()
     async Create(@Body() itemRequestDto: ItemRequestDto) {
@@ -19,8 +27,10 @@ export class ItemCommandController {
 
     @Patch(':id')
     @HttpCode(204)
-    async Update(@Param('id') id: string, @Body() itemRequestDto: ItemRequestDto) {
-
-        await this.itemService.Update(id, itemRequestDto)
+    async Update(
+        @Param('id') id: string,
+        @Body() itemRequestDto: ItemRequestDto,
+    ) {
+        await this.itemService.Update(id, itemRequestDto);
     }
 }
