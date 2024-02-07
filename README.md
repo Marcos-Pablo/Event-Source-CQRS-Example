@@ -14,8 +14,6 @@ This project is a Nest.js application built with TypeScript, leveraging the powe
 ### Getting Started:
 To get started with the project, follow these steps:
 
-Clone the repository:
-
 ```bash
 $ git clone https://github.com/Marcos-Pablo/Event-Source-CQRS-Example.git
 $ npm install
