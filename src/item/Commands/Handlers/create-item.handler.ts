@@ -13,13 +13,13 @@ export class CreateItemHandler implements ICommandHandler<CreateItemCommand> {
     ) {}
 
     async execute(command: CreateItemCommand): Promise<void> {
-        const x = new Item();
-        x.uuid = uuidv4();
-        x.name = command.name;
-        x.quantity = command.quantity;
-        x.cost = command.cost;
+        var item = new Item();
+        item.uuid = uuidv4();
+        item.name = command.name;
+        item.quantity = command.quantity;
+        item.cost = command.cost;
 
-        const item = this.publisher.mergeObjectContext(x);
+        item = this.publisher.mergeObjectContext(item);
 
         const event = item.create();
 
