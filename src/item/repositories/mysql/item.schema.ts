@@ -3,7 +3,6 @@ import {
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
-    UpdateDateColumn,
 } from 'typeorm';
 import { IItemSchema } from '@item/repositories/item.schema.interface';
 

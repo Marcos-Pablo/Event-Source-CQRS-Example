@@ -3,14 +3,14 @@ version: '3.8'
 services:
   mongo:
     image: mongo
-    container_name: nest-catalog-mongo
+    container_name: Event-Source-CQRS-Example-mongo
     ports:
       - 27017:27017
     volumes:
       - mongodbdata:/data/db
 
   redis:
-    container_name: cache
+    container_name: Event-Source-CQRS-Example-cache
     image: redis
     ports:
       - 6379:6379
@@ -18,6 +18,7 @@ services:
       - redis:/data
 
   mysqlsrv:
+    container_name: Event-Source-CQRS-Example-MySQL
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
@@ -30,6 +31,7 @@ services:
       - mysql-compose-network
 
   adminer:
+    container_name: Event-Source-CQRS-Example-MySQL-Adminer
     image: adminer
     restart: always
     ports:
