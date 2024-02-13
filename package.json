@@ -1,8 +1,8 @@
 {
-  "name": "catalog",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "event-source-cqrs-example",
+  "version": "1.0.0",
+  "description": "This project is a Nest.js application built with TypeScript, leveraging the powerful architectural patterns of Command Query Responsibility Segregation (CQRS) and Event Sourcing.",
+  "author": "Marcos Pablo Souza de Almeida (https://github.com/Marcos-Pablo)",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

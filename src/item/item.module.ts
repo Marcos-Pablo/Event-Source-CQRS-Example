@@ -1,4 +1,4 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ItemService } from '@item/Services/item.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Item, ItemSchema } from '@item/repositories/mongo/item.schema';
@@ -25,7 +25,6 @@ import { ItemUpdatedEventHandler } from '@item/events/handlers/item-updated.hand
 import { ItemDeletedEventHandler } from '@item/events/handlers/item-deleted.handler';
 import { EventModule } from '@event/event.module';
 import { SnapshotModule } from '@snapshot/snapshot.module';
-import * as redisStore from 'cache-manager-redis-store';
 
 export const CommandHandlers = [
     CreateItemHandler,
@@ -46,12 +45,6 @@ export const EventHandlers = [
         CqrsModule,
         EventModule,
         SnapshotModule,
-        CacheModule.register({
-            isGlobal: true,
-            store: redisStore,
-            host: 'localhost',
-            port: 6379,
-        }),
     ],
     controllers: [ItemCommandController, ItemQueryController],
     providers: [
