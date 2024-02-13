@@ -27,21 +27,6 @@ services:
       - "3306:3306"
     volumes:
       - mysqldbdata:/data/db
-    networks:
-      - mysql-compose-network
-
-  adminer:
-    container_name: Event-Source-CQRS-Example-MySQL-Adminer
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - mysql-compose-network
-
-networks:
-  mysql-compose-network:
-    driver: bridge
 
 volumes:
   mongodbdata:
